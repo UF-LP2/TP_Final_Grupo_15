@@ -40,7 +40,10 @@ namespace tp_final
 
         public ClassPedido(string producto, float precio, float largo, float ancho, float alto, float peso, string prioridad, string barrio)
         {
-            switch (producto)
+            _producto = producto;
+           
+
+            switch (_producto)
             {
                 case "Televisor":
                     TipoDePrducto = ETipoDePrducto.Televisor;
@@ -54,7 +57,9 @@ namespace tp_final
             Alto = alto;
             Peso = peso;
 
-            switch (prioridad)
+            _prioridad = prioridad;
+
+            switch (_prioridad)
             {
                 case "express":
                     TipoDeEntrega = ETipoDeEntrega.Express;
@@ -89,6 +94,8 @@ namespace tp_final
         public ETipoDePrducto TipoDePrducto { get { return _tipodeprducto; } set { _tipodeprducto = value; } }
         public ETipoDeEntrega TipoDeEntrega { get { return _tipodeentrega; } set { _tipodeentrega = value; } }
         public string? Barrio { get { return _barrio; } set { _barrio = value; } }
+        public string? _producto { get; set; }
+        public string? _prioridad { get; set; }
 
         #endregion 
     }

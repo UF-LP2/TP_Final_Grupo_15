@@ -52,7 +52,7 @@ namespace tp_final
             }
         }
 
-        public ClassGrafoNodo BuscarNodo(string zona)
+        public ClassGrafoNodo? BuscarNodo(string zona)
         {
             foreach (ClassGrafoNodo Nodo in NodoList)
             {
@@ -63,15 +63,15 @@ namespace tp_final
 
         public List<ClassGrafoNodo>? Camino(string inicio, string destino, List<ClassGrafoNodo> Recorrido, List<ClassGrafoNodo> NodosVisitados)
         {
-            ClassGrafoNodo NodoInicio = BuscarNodo(inicio);
-            ClassGrafoNodo NodoDestino = BuscarNodo(destino);
+            ClassGrafoNodo? NodoInicio = BuscarNodo(inicio);
+            ClassGrafoNodo? NodoDestino = BuscarNodo(destino);
 
             if(NodoInicio == null || NodoDestino == null)
             {
                 return null;
             }
 
-            List<ClassGrafoNodo> RecorridoActual = Recorrido;
+            List<ClassGrafoNodo> RecorridoActual = Recorrido; // todo: clonar lista
             List<ClassGrafoNodo>? RecorridoAux;
             if (NodoInicio == NodoDestino)
             {
@@ -81,7 +81,7 @@ namespace tp_final
             {
                 foreach (ClassGrafoNodo Nodo in NodosVisitados)
                 {
-                    if (Nodo == NodoDestino)
+                    if (Nodo == NodoInicio)
                     {
                         return null;
                     }
@@ -93,9 +93,9 @@ namespace tp_final
                 {
                     RecorridoAux = Camino(union.NodoDestino.zona, destino, RecorridoActual, NodosVisitados);
 
-                    if (RecorridoAux == null)
+                    if (RecorridoAux != null)
                     {
-                        return Recorrido;
+                        return RecorridoAux;
                     }
                 }
                 return null;
