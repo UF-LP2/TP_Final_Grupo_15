@@ -38,7 +38,7 @@ namespace tp_final
 
         #region Constructors
 
-        public ClassPedido(string producto, float precio, float largo, float ancho, float alto, float peso, string prioridad, string barrio)
+        public ClassPedido(string? producto, float precio, float largo, float ancho, float alto, float peso, string? prioridad, string? barrio)
         {
             _producto = producto;
            

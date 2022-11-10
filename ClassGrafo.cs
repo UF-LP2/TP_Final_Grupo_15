@@ -40,8 +40,12 @@ namespace tp_final
         {
             try
             {
-                ClassGrafoNodo NodoPartida = BuscarNodo(partida);
-                ClassGrafoNodo NodoDestino = BuscarNodo(destino);
+                ClassGrafoNodo? NodoPartida = BuscarNodo(partida);
+                ClassGrafoNodo? NodoDestino = BuscarNodo(destino);
+                if (NodoPartida == null || NodoDestino == null)
+                {
+                    return;
+                }
                 ClassGrafoUnion NuevaUnion = new ClassGrafoUnion(NodoPartida, NodoDestino, peso);
                 NodoPartida.listaunion.Add(NuevaUnion);
 
