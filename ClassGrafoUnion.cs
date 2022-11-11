@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace tp_final
 {
-    internal class ClassGrafoUnion
+    public class ClassGrafoUnion
     {
         #region Variables
 
         public ClassGrafoNodo NodoPartida;
         public ClassGrafoNodo NodoDestino;
-        public int peso;
+        public float peso;
 
         #endregion
 
         #region Constructors
 
-        public ClassGrafoUnion(ClassGrafoNodo NodoPartida, ClassGrafoNodo NodoDestino, int peso)
+        public ClassGrafoUnion(ClassGrafoNodo NodoPartida, ClassGrafoNodo NodoDestino, float peso)
         {
             this.NodoPartida = NodoPartida;
             this.NodoDestino = NodoDestino;

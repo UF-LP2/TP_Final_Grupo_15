@@ -43,7 +43,7 @@ namespace tp_final
         {
             for (int i = 0; i < listapedidos.Count; i++)
             {
-                if (listapedidos[i].Barrio == nodoactual.zona)
+                if (listapedidos[i].Barrio == nodoactual.NombreNodo)
                 {
                     listapedidos.Remove(listapedidos[i]);
                     i--;

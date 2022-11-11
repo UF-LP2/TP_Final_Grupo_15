@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace tp_final
 {
-    internal class ClassGrafo
+    public class ClassGrafo
     {
         #region Variables
 
@@ -36,7 +36,7 @@ namespace tp_final
             NodoList.Add(NuevoNodo);
         }
 
-        public void AgregarUnion(string partida, string destino, int peso)
+        public void AgregarUnion(string partida, string destino, float peso)
         {
             try
             {
@@ -46,8 +46,12 @@ namespace tp_final
                 {
                     return;
                 }
-                ClassGrafoUnion NuevaUnion = new ClassGrafoUnion(NodoPartida, NodoDestino, peso);
-                NodoPartida.listaunion.Add(NuevaUnion);
+
+                ClassGrafoUnion NuevaUnionPartida = new ClassGrafoUnion(NodoPartida, NodoDestino, peso);
+                NodoPartida.listaunion.Add(NuevaUnionPartida);
+
+                ClassGrafoUnion NuevaUnionDestino = new ClassGrafoUnion(NodoDestino, NodoPartida, peso);
+                NodoDestino.listaunion.Add(NuevaUnionDestino);
 
             }
             catch (Exception ex)
@@ -60,7 +64,7 @@ namespace tp_final
         {
             foreach (ClassGrafoNodo Nodo in NodoList)
             {
-                if (Nodo.zona == zona) { return Nodo; }
+                if (Nodo.NombreNodo == zona) { return Nodo; }
             }
             return null;
         }
@@ -79,6 +83,7 @@ namespace tp_final
             List<ClassGrafoNodo>? RecorridoAux;
             if (NodoInicio == NodoDestino)
             {
+                Recorrido.Add(NodoDestino); //modificado para incluir en ultimo nodo en el recorrido
                 return Recorrido;
             }
             else
@@ -95,7 +100,7 @@ namespace tp_final
                 List<ClassGrafoUnion> PosiblesCaminos = NodoInicio.listaunion;
                 foreach(ClassGrafoUnion union in PosiblesCaminos) 
                 {
-                    RecorridoAux = Camino(union.NodoDestino.zona, destino, RecorridoActual, NodosVisitados);
+                    RecorridoAux = Camino(union.NodoDestino.NombreNodo, destino, RecorridoActual, NodosVisitados);
 
                     if (RecorridoAux != null)
                     {
