@@ -44,45 +44,45 @@ namespace csvfiles {
             }
         }
 
-        //public List<ClassGrafoNodo> read_csv_NodosGrafo()
-        //{
-        //    string path = "C:\\Users\\Lucas\\source\\repos\\UF-LP2\\TP_Final_Grupo_15\\nodos.csv";
+        public List<ClassGrafoNodo> read_csv_NodosGrafo()
+        {
+            string path = "C:\\Users\\gilab\\source\\repos\\UF-LP2\\TP_Final_Grupo_15\\Barrios_BA.csv";
 
-        //    using (var reader = new StreamReader(path))// nodos.csv
-        //    using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-        //    {
-        //        List<ClassGrafoNodo> records = new List<ClassGrafoNodo>();
-        //        csv.Read();
-        //        csv.ReadHeader();
-        //        while (csv.Read())
-        //        {
-        //            ClassGrafoNodo record = new ClassGrafoNodo(csv.GetField<string>("barrio"));
-        //            records.Add(record);
-        //        }
-        //        return records;
-        //    }
-        //}
+            using (var reader = new StreamReader(path))// Barrios_BA.csv
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                List<ClassGrafoNodo> records = new List<ClassGrafoNodo>();
+                csv.Read();
+                csv.ReadHeader();
+                while (csv.Read())
+                {
+                    ClassGrafoNodo record = new ClassGrafoNodo(csv.GetField<string>("Barrios"));
+                    records.Add(record);
+                }
+                return records;
+            }
+        }
 
-        //public void read_csv_NodosUniones(ClassGrafo grafo)
-        //{
-        //    string path = "C:\\Users\\Lucas\\source\\repos\\UF-LP2\\TP_Final_Grupo_15\\nodosuniones.csv";
+        public void read_csv_NodosUniones(ClassGrafo grafo)
+        {
+            string path = "C:\\Users\\gilab\\source\\repos\\UF-LP2\\TP_Final_Grupo_15\\UnionesNodos.csv";
 
-        //    using (var reader = new StreamReader(path)) // uniones.csv
-        //    using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-        //    {
-        //        csv.Read();
-        //        csv.ReadHeader();
-        //        while (csv.Read())
-        //        {
-        //            grafo.AgregarUnion(
-        //                csv.GetField<string>("partida"),
-        //                csv.GetField<string>("destino"),
-        //                csv.GetField<float>("peso")
-        //                );
-        //        }
-        //        return;
-        //    }
-        //}
+            using (var reader = new StreamReader(path)) // UnionesNodos.csv
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                csv.Read();
+                csv.ReadHeader();
+                while (csv.Read())
+                {
+                    grafo.AgregarUnion(
+                        csv.GetField<string>("partida"),
+                        csv.GetField<string>("destino"),
+                        csv.GetField<float>("peso")
+                        );
+                }
+                return;
+            }
+        }
 
     }
 };

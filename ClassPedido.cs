@@ -17,6 +17,7 @@ namespace tp_final
     public enum ETipoDeEntrega
     {
         Express,
+        Semiexpress,
         Normal,
         Diferido
     }
@@ -31,6 +32,7 @@ namespace tp_final
         private float _ancho;
         private float _alto;
         private float _peso;
+        private float _volumen;
         private ETipoDeEntrega _tipodeentrega;
         private string? _barrio;
 
@@ -41,28 +43,119 @@ namespace tp_final
         public ClassPedido(string? producto, float precio, float largo, float ancho, float alto, float peso, string? prioridad, string? barrio)
         {
             _producto = producto;
-           
-
+            
             switch (_producto)
             {
-                case "Televisor":
+                case "impresoras":
+                    TipoDePrducto = ETipoDePrducto.Electronico;
+                    break;
+                case "disco solido":
+                    TipoDePrducto = ETipoDePrducto.Electronico;
+                    break;
+                case "disco duro":
+                    TipoDePrducto = ETipoDePrducto.Electronico;
+                    break;
+                case "computadoras personales":
+                    TipoDePrducto = ETipoDePrducto.Electronico;
+                    break;
+                case "webcam":
+                    TipoDePrducto = ETipoDePrducto.Electronico;
+                    break;
+                case "teclado":
+                    TipoDePrducto = ETipoDePrducto.Electronico;
+                    break;
+                case "parlante":
+                    TipoDePrducto = ETipoDePrducto.Electronico;
+                    break;
+                case "mouse":
+                    TipoDePrducto = ETipoDePrducto.Electronico;
+                    break;
+                case "monitor":
+                    TipoDePrducto = ETipoDePrducto.Electronico;
+                    break;
+                case "termotanques":
+                    TipoDePrducto = ETipoDePrducto.LineaBlanca;
+                    break;
+                case "cocinas":
+                    TipoDePrducto = ETipoDePrducto.LineaBlanca;
+                    break;
+                case "calefones":
+                    TipoDePrducto = ETipoDePrducto.LineaBlanca;
+                    break;
+                case "secarropas":
+                    TipoDePrducto = ETipoDePrducto.LineaBlanca;
+                    break;
+                case "microondas":
+                    TipoDePrducto = ETipoDePrducto.LineaBlanca;
+                    break;
+                case "lavarropas":
+                    TipoDePrducto = ETipoDePrducto.LineaBlanca;
+                    break;
+                case "heladeras":
+                    TipoDePrducto = ETipoDePrducto.LineaBlanca;
+                    break;
+                case "freezers":
+                    TipoDePrducto = ETipoDePrducto.LineaBlanca;
+                    break;
+                case "molinillos de granos de café"://probar
+                    TipoDePrducto = ETipoDePrducto.PequenoElectrodomestico;
+                    break;
+                case "tostadoras":
+                    TipoDePrducto = ETipoDePrducto.PequenoElectrodomestico;
+                    break;
+                case "cafeteras":
+                    TipoDePrducto = ETipoDePrducto.PequenoElectrodomestico;
+                    break;
+                case "ralladores":
+                    TipoDePrducto = ETipoDePrducto.PequenoElectrodomestico;
+                    break;
+                case "licuadoras":
+                    TipoDePrducto = ETipoDePrducto.PequenoElectrodomestico;
+                    break;
+                case "exprimidores":
+                    TipoDePrducto = ETipoDePrducto.PequenoElectrodomestico;
+                    break;
+                case "televisor 52":
+                    TipoDePrducto = ETipoDePrducto.Televisor;
+                    break;
+                case "televisor 55":
+                    TipoDePrducto = ETipoDePrducto.Televisor;
+                    break;
+                case "televisor 62":
+                    TipoDePrducto = ETipoDePrducto.Televisor;
+                    break;
+                case "televisor 68":
+                    TipoDePrducto = ETipoDePrducto.Televisor;
+                    break;
+                case "televisor 75":
+                    TipoDePrducto = ETipoDePrducto.Televisor;
+                    break;
+                case "televisor 82":
+                    TipoDePrducto = ETipoDePrducto.Televisor;
+                    break;
+                case "televisor 90":
                     TipoDePrducto = ETipoDePrducto.Televisor;
                     break;
                 default:
+                    TipoDePrducto = ETipoDePrducto.PequenoElectrodomestico;
                     break;
             }
+
             Precio = precio;
             Largo = largo;
             Ancho = ancho;
             Alto = alto;
             Peso = peso;
-
+            Volumen = (ancho/100) * (largo/100) * (alto/100);
             _prioridad = prioridad;
 
             switch (_prioridad)
             {
                 case "express":
                     TipoDeEntrega = ETipoDeEntrega.Express;
+                    break;
+                case "semiexpress,":
+                    TipoDeEntrega = ETipoDeEntrega.Semiexpress;
                     break;
                 case "normal":
                     TipoDeEntrega = ETipoDeEntrega.Normal;
@@ -87,6 +180,7 @@ namespace tp_final
 
         #region GetSets
         public float Precio { get { return _precio; } set { _precio = value; } }
+        public float Volumen { get { return _volumen; } set { _volumen = value; } }
         public float Largo { get { return _largo; } set { _largo = value; } }
         public float Ancho { get { return _ancho; } set { _ancho = value; } }
         public float Alto { get { return _alto; } set { _alto = value; } }

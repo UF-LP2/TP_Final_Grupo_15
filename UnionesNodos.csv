@@ -1,0 +1,55 @@
+partida,destino,peso
+san isidro,vicente lopez,10
+san isidro,san martin,18
+san martin,comuna 11,5.9
+san martin,comuna 12,5.4
+san martin,tres de febrero,7.1
+san martin,vicente lopez,11
+vicente lopez,comuna 13,5
+vicente lopez,comuna 12,6.2
+tres de febrero,moron,11
+tres de febrero,la matanza,12
+tres de febrero,comuna 9,8.9
+tres de febrero,comuna 10,5.1
+tres de febrero,comuna 11,3.7
+moron,la matanza,6.9
+la matanza,lomas de zamora,20
+la matanza,comuna 8,18
+la matanza,comuna 9,6.8
+lomas de zamora,lanus,9.7
+lomas de zamora,comuna 8,15
+lanus,avellaneda,6.6
+lanus,comuna 8,8.8
+lanus,comuna 4,7.8
+avellaneda,comuna 4,4.4
+comuna 1,comuna 2,4.5
+comuna 1,comuna 3,4.7
+comuna 1,comuna 4,6.3
+comuna 2,comuna 14,3.6
+comuna 2,comuna 5,4.9
+comuna 2,comuna 3,7.3
+comuna 3,comuna 5,2.9
+comuna 3,comuna 4,4.1
+comuna 4,comuna 5,6.3
+comuna 4,comuna 7,7.5
+comuna 4,comuna 8,7.7
+comuna 5,comuna 14,6.4
+comuna 5,comuna 6,3.2
+comuna 5,comuna 7,4.8
+comuna 6,comuna 7,3
+comuna 6,comuna 11,8.6
+comuna 6,comuna 15,4.4
+comuna 7,comuna 11,14
+comuna 7,comuna 8,6.2
+comuna 7,comuna 9,7.1
+comuna 7,comuna 10,7.5
+comuna 8,comuna 9,8.6
+comuna 9,comuna 10,4.9
+comuna 10,comuna 11,2.7
+comuna 11,comuna 15,7.6
+comuna 11,comuna 12,7.6
+comuna 12,comuna 15,6.3
+comuna 12,comuna 13,3.9
+comuna 13,comuna 15,6
+comuna 13,comuna 14,4.6
+comuna 14,comuna 15,5.1
