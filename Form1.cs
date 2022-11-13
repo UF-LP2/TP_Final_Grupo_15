@@ -105,18 +105,21 @@ public partial class Form1 : Form
 
         // Genero arrays
 
-        int[] Volumenes = new int[PedidosConElevador.Count];
-        int[] Pesos = new int[PedidosConElevador.Count];
+        int[] Volumenes = new int[PedidosConElevador.Count + 1];
+        int[] Pesos = new int[PedidosConElevador.Count + 1];
 
-        for (int i = 0; i <PedidosConElevador.Count; i++)
+        Volumenes[0] = 0;
+        Pesos[0] = 0;
+
+        for (int i = 1; i <PedidosConElevador.Count + 1; i++)
         {
-            Volumenes[i] = (int)PedidosConElevador[i].Volumen;
-            Pesos[i] = (int)PedidosConElevador[i].Peso;
+            Volumenes[i] = (int)PedidosConElevador[i-1].Volumen;
+            Pesos[i] = (int)PedidosConElevador[i-1].Peso;
         }
 
         // Primero tengo en cuenta el peso maximo
 
-        List<int>IndicePedidos = Algoritmo.CargaMochila(Volumenes, Pesos, ListaVehiculos[1].PesoMaximo, PedidosConElevador.Count);
+        List<int>IndicePedidos = Algoritmo.CargaMochila(Volumenes, Pesos, ListaVehiculos[1].PesoMaximo, PedidosConElevador.Count + 1);
 
         //Genero lista auxilair de pedidos que cumplen el primer requisito
 
@@ -124,30 +127,33 @@ public partial class Form1 : Form
 
         for (int i = 0; i < IndicePedidos.Count; i++)
         {
-            PedidosAux.Add(PedidosConElevador[IndicePedidos[i]]);
+            PedidosAux.Add(PedidosConElevador[IndicePedidos[i] - 1]);
         }
 
         // Genero arrays
 
-        Volumenes = new int[PedidosAux.Count];
-        Pesos = new int[PedidosAux.Count];
+        Volumenes = new int[PedidosAux.Count + 1];
+        Pesos = new int[PedidosAux.Count + 1];
 
-        for (int i = 0; i < PedidosAux.Count; i++)
+        Volumenes[0] = 0;
+        Pesos[0] = 0;
+
+        for (int i = 1; i < PedidosAux.Count + 1; i++)
         {
-            Volumenes[i] = (int)PedidosAux[i].Volumen;
-            Pesos[i] = (int)PedidosAux[i].Peso;
+            Volumenes[i] = (int)PedidosAux[i - 1].Volumen;
+            Pesos[i] = (int)PedidosAux[i - 1].Peso;
         }
 
         // Seguno tengo en cuenta el volumen maximo
 
-        IndicePedidos = Algoritmo.CargaMochila(Pesos, Volumenes, (int)ListaVehiculos[1].VolumenMaximo, PedidosAux.Count);
+        IndicePedidos = Algoritmo.CargaMochila(Pesos, Volumenes, (int)ListaVehiculos[1].VolumenMaximo, PedidosAux.Count + 1);
 
         // Cargo esos pedidos en el vehiculo que cumplen con los 2 requisitos
 
         for (int i = 0; i < IndicePedidos.Count; i++)
         {
-            ListaVehiculos[1].listapedidos.Add(PedidosAux[IndicePedidos[i]]);
-            PedidosConElevador.Remove(PedidosAux[IndicePedidos[i]]);
+            ListaVehiculos[1].listapedidos.Add(PedidosAux[IndicePedidos[i] - 1]);
+            PedidosConElevador.Remove(PedidosAux[IndicePedidos[i] - 1]);
         }
 
         //Todo: pasar todo a un metodo para poder ejecutarse en todos los vehiculos y todas las prioridades

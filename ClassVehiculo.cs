@@ -19,14 +19,14 @@ namespace tp_final
         public List<ClassPedido> listapedidos;
         public List<ClassGrafoNodo>? Recorrido;
         public int PesoMaximo;
-        public float VolumenMaximo;//se puede hacer con int
+        public int VolumenMaximo;//se puede hacer con int
         public ETipoDeVehiculo vehiculo;
 
         #endregion 
 
         #region Constructors
 
-        public ClassVehiculo(float volumenMaximo,int pesomaximo)
+        public ClassVehiculo(int volumenMaximo,int pesomaximo)
         {
             VolumenMaximo = volumenMaximo;
             PesoMaximo = pesomaximo;
@@ -39,22 +39,22 @@ namespace tp_final
             {
                 case "furgon":
                     vehiculo = ETipoDeVehiculo.Furgon;
-                    VolumenMaximo = 10.8F;
+                    VolumenMaximo = 10800000 / 1000;
                     PesoMaximo = 7000;
                     break;
                 case "furgoneta":
                     vehiculo = ETipoDeVehiculo.Furgoneta;
-                    VolumenMaximo = 17.0F;
+                    VolumenMaximo = 17000000 / 1000;
                     PesoMaximo = 3500;
                     break;
                 case "camioneta":
                     vehiculo = ETipoDeVehiculo.Camioneta;
-                    VolumenMaximo = 5.49F;
+                    VolumenMaximo = 5490000 / 1000;
                     PesoMaximo = 750;
                     break;
                 default:
                     vehiculo = ETipoDeVehiculo.Camioneta;
-                    VolumenMaximo = 5.49F;
+                    VolumenMaximo = 5490000;
                     PesoMaximo = 750;
                     break;
             }

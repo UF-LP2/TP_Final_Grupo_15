@@ -146,8 +146,8 @@ namespace tp_final
             Largo = largo;
             Ancho = ancho;
             Alto = alto;
-            Peso = peso;
-            Volumen = (ancho/100) * (largo/100) * (alto/100);
+            Peso = peso * 10;
+            Volumen = ((ancho) * (largo) * (alto) / 1000);
             _prioridad = prioridad;
 
             switch (_prioridad)

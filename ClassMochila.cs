@@ -79,12 +79,14 @@ namespace tp_final
             }
             List<int> listadepedidos = new List<int>();
 
+            int capacidadaux = CapacidadMochila;
+
             for (int i = NroElementos - 1; i > 0; i--)
             {
-                if (Soluciones_2[i, CapacidadMochila] != Soluciones_2[i - 1, CapacidadMochila] && Soluciones_2[i, CapacidadMochila] == Soluciones_2[i - 1, CapacidadMochila - Peso[i]] + Valor[i])
+                if (Soluciones_2[i, capacidadaux] != Soluciones_2[i - 1, capacidadaux] && Soluciones_2[i, capacidadaux] == Soluciones_2[i - 1, capacidadaux - Peso[i]] + Valor[i])
                 {
                     listadepedidos.Add(i);
-                    CapacidadMochila -= Peso[i];
+                    capacidadaux -= Peso[i];
                 }
             }
             return listadepedidos;
