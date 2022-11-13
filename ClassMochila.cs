@@ -45,7 +45,7 @@ namespace tp_final
             }
         }
 
-       public void ProcesoDeLlenado(List<ClassPedido> Pedidos, ClassVehiculo Vehiculo)//lISTA YA FLITRADA
+       public void ProcesoDeLlenado(List<ClassPedido> PedidosGlobales, List<ClassPedido> Pedidos, ClassVehiculo Vehiculo)//lISTA YA FLITRADA
         {
 
             // Genero arrays
@@ -100,6 +100,7 @@ namespace tp_final
                 //Vehiculo.listapedidos.Add(PedidosAux[IndicePedidos[i] - 1]);
                 Vehiculo.AgregarPedido(PedidosAux[IndicePedidos[i] - 1]);
                 Pedidos.Remove(PedidosAux[IndicePedidos[i] - 1]);
+                PedidosGlobales.Remove(PedidosAux[IndicePedidos[i] - 1]);
             }
 
             //Todo: pasar todo a un metodo para poder ejecutarse en todos los vehiculos y todas las prioridades
