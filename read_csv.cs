@@ -46,7 +46,7 @@ namespace csvfiles {
 
         public List<ClassGrafoNodo> read_csv_NodosGrafo()
         {
-            string path = "C:\\Users\\gilab\\source\\repos\\UF-LP2\\TP_Final_Grupo_15\\Barrios_BA.csv";
+            string path = "C:\\Users\\Lucas\\source\\repos\\UF-LP2\\TP_Final_Grupo_15\\Barrios_BA.csv";
 
             using (var reader = new StreamReader(path))// Barrios_BA.csv
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -65,7 +65,7 @@ namespace csvfiles {
 
         public void read_csv_NodosUniones(ClassGrafo grafo)
         {
-            string path = "C:\\Users\\gilab\\source\\repos\\UF-LP2\\TP_Final_Grupo_15\\UnionesNodos.csv";
+            string path = "C:\\Users\\Lucas\\source\\repos\\UF-LP2\\TP_Final_Grupo_15\\UnionesNodos.csv";
 
             using (var reader = new StreamReader(path)) // UnionesNodos.csv
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))

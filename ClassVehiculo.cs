@@ -12,7 +12,7 @@ namespace tp_final
         Furgoneta=1,
         Camioneta=2
     }
-    internal class ClassVehiculo
+    public class ClassVehiculo
     {
         #region Variables
 
@@ -42,12 +42,12 @@ namespace tp_final
                     VolumenMaximo = 10.8F;
                     PesoMaximo = 7000;
                     break;
-                case "furgoneta,":
+                case "furgoneta":
                     vehiculo = ETipoDeVehiculo.Furgoneta;
                     VolumenMaximo = 17.0F;
                     PesoMaximo = 3500;
                     break;
-                case "camioneta,":
+                case "camioneta":
                     vehiculo = ETipoDeVehiculo.Camioneta;
                     VolumenMaximo = 5.49F;
                     PesoMaximo = 750;

@@ -35,6 +35,7 @@ namespace tp_final
         private float _volumen;
         private ETipoDeEntrega _tipodeentrega;
         private string? _barrio;
+        private bool _elevador;
 
         #endregion 
 
@@ -168,6 +169,15 @@ namespace tp_final
                     break;
             }
 
+            if (TipoDePrducto == ETipoDePrducto.LineaBlanca)
+            {
+                Elevador = true;
+            }
+            else
+            {
+                Elevador = false;
+            }
+
             Barrio = barrio;
         }
 
@@ -190,6 +200,7 @@ namespace tp_final
         public string? Barrio { get { return _barrio; } set { _barrio = value; } }
         public string? _producto { get; set; }
         public string? _prioridad { get; set; }
+        public bool Elevador  { get { return _elevador; } set { _elevador = value; } }
 
         #endregion 
     }
