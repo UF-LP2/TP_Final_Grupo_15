@@ -19,7 +19,10 @@ namespace tp_final
         public List<ClassPedido> listapedidos;
         public List<ClassGrafoNodo>? Recorrido;
         public int PesoMaximo;
-        public int VolumenMaximo;//se puede hacer con int
+        public int VolumenMaximo;
+        public int PesoDisponible;
+        public int VolumenDisponible;
+        public string _vehiculo;
         public ETipoDeVehiculo vehiculo;
 
         #endregion 
@@ -35,6 +38,8 @@ namespace tp_final
         }
         public ClassVehiculo(string Vehiculito)//POSIBLE CONSTRUCTOR
         {
+            _vehiculo = Vehiculito;
+
             switch (Vehiculito)
             {
                 case "furgon":
@@ -60,6 +65,8 @@ namespace tp_final
             }
             listapedidos = new List<ClassPedido>();
             Recorrido = null;
+            VolumenDisponible = VolumenMaximo;
+            PesoDisponible= PesoMaximo;
         }
         #endregion 
 
@@ -72,6 +79,8 @@ namespace tp_final
         public void AgregarPedido(ClassPedido pedido)
         {
             listapedidos.Add(pedido);
+            VolumenDisponible -= (int)pedido.Volumen;
+            PesoDisponible -= (int)pedido.Peso;
         }
 
         public void QuitarPedido(ClassGrafoNodo nodoactual)

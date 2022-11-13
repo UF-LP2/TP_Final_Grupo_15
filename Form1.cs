@@ -85,8 +85,12 @@ public partial class Form1 : Form
         ListaDeNodosRecorrido = new List<ClassGrafoNodo>();
 
         NodosVisitadosRecorrido = new List<ClassGrafoNodo>();
-        
+
         //grafo.Camino("comuna 1", "la matanza", ListaDeNodosRecorrido, NodosVisitadosRecorrido); //test metodo camino
+
+        //Variables para ListView
+
+        listarecorridos = new List<ClassRecorrido>();
 
         Console.WriteLine();
     }
@@ -101,63 +105,179 @@ public partial class Form1 : Form
 
         // Separo en dos sublistas de acuerdo a la necesidad del elevador(Primero Sólo Pedidos Express)
 
-        Algoritmo.SepararListas(Pedidos, PedidosConElevador, PedidosSinElevador, ETipoDeEntrega.Express);
+        //Algoritmo.SepararListas(Pedidos, PedidosConElevador, PedidosSinElevador, ETipoDeEntrega.Express);
 
-        // Genero arrays
+        //Algoritmo.ProcesoDeLlenado(PedidosConElevador, ListaVehiculos[0]);
 
-        int[] Volumenes = new int[PedidosConElevador.Count + 1];
-        int[] Pesos = new int[PedidosConElevador.Count + 1];
+        //if (PedidosConElevador.Count != 0)
+        //{
+        //    Algoritmo.ProcesoDeLlenado(PedidosConElevador, ListaVehiculos[1]);
+        //}
 
-        Volumenes[0] = 0;
-        Pesos[0] = 0;
+        //for (int i = 2; i < ListaVehiculos.Count; i++)
+        //{
+        //    if (PedidosSinElevador.Count != 0)
+        //    {
+        //        Algoritmo.ProcesoDeLlenado(PedidosSinElevador, ListaVehiculos[i]);
+        //    }
+        //}
 
-        for (int i = 1; i <PedidosConElevador.Count + 1; i++)
+        //int PosVehiculo = 0;
+
+        //while (PedidosConElevador.Count != 0 || PedidosSinElevador.Count != 0)
+        //{
+        //    if (PedidosConElevador.Count != 0 && (PosVehiculo == 0 || PosVehiculo == 1))
+        //    {
+        //        Algoritmo.ProcesoDeLlenado(PedidosConElevador, ListaVehiculos[PosVehiculo]);
+        //    }
+
+        //    if (PedidosSinElevador.Count != 0)
+        //    {
+        //        Algoritmo.ProcesoDeLlenado(PedidosSinElevador, ListaVehiculos[PosVehiculo]);
+        //    }
+
+        //    PosVehiculo++;
+        //}
+
+        int PosTipoDeEntra = 0;
+
+        int PosVehiculoMaximo = 0;
+
+        while (PosTipoDeEntra != 4)
         {
-            Volumenes[i] = (int)PedidosConElevador[i-1].Volumen;
-            Pesos[i] = (int)PedidosConElevador[i-1].Peso;
+            int PosVehiculo = 0;
+
+            Algoritmo.SepararListas(Pedidos, PedidosConElevador, PedidosSinElevador, (ETipoDeEntrega)PosTipoDeEntra);
+
+            if(ETipoDeEntrega.Express == (ETipoDeEntrega)PosTipoDeEntra)
+            {
+                while ((PedidosConElevador.Count != 0 || PedidosSinElevador.Count != 0 ) && PosVehiculo != 6)
+                {
+                    if (PedidosConElevador.Count != 0 && (PosVehiculo == 0 || PosVehiculo == 1))
+                    {
+                        Algoritmo.ProcesoDeLlenado(PedidosConElevador, ListaVehiculos[PosVehiculo]);
+                    }
+
+                    if (PedidosSinElevador.Count != 0)
+                    {
+                        Algoritmo.ProcesoDeLlenado(PedidosSinElevador, ListaVehiculos[PosVehiculo]);
+                    }
+
+                    PosVehiculo++;
+                    PosVehiculoMaximo = PosVehiculo;
+                }
+            }
+            else
+            {
+                for(int i = 0; i < PosVehiculoMaximo; i++)
+                {
+                    if (PedidosConElevador.Count != 0 && (i == 0 || i == 1))
+                    {
+                        Algoritmo.ProcesoDeLlenado(PedidosConElevador, ListaVehiculos[i]);
+                    }
+
+                    if (PedidosSinElevador.Count != 0)
+                    {
+                        Algoritmo.ProcesoDeLlenado(PedidosSinElevador, ListaVehiculos[i]);
+                    }
+                }
+            }
+            PosTipoDeEntra++;
         }
 
-        // Primero tengo en cuenta el peso maximo
+        bool nodoencontrado = false;
 
-        List<int>IndicePedidos = Algoritmo.CargaMochila(Volumenes, Pesos, ListaVehiculos[1].PesoMaximo, PedidosConElevador.Count + 1);
-
-        //Genero lista auxilair de pedidos que cumplen el primer requisito
-
-        List<ClassPedido> PedidosAux = new List<ClassPedido>();
-
-        for (int i = 0; i < IndicePedidos.Count; i++)
+        for (int i = 0; i < PosVehiculoMaximo; i++)
         {
-            PedidosAux.Add(PedidosConElevador[IndicePedidos[i] - 1]);
+            List<ClassGrafoNodo> listanodosaux = new List<ClassGrafoNodo>();
+
+            for (int j = 0; j < ListaVehiculos[i].listapedidos.Count; j++)
+            {
+                nodoencontrado = false;
+
+                if(j == 0)
+                {
+                    ListaDeNodosRecorrido = new List<ClassGrafoNodo>();
+
+                    NodosVisitadosRecorrido = new List<ClassGrafoNodo>();
+
+                    listanodosaux = grafo.Camino(grafo.NodoList[8].NombreNodo, ListaVehiculos[i].listapedidos[j].Barrio, ListaDeNodosRecorrido, NodosVisitadosRecorrido);
+
+                    if (ListaVehiculos[i].listapedidos.Count > 1)
+                    {
+                        foreach (ClassGrafoNodo nodo in listanodosaux)
+                        {
+                            if (grafo.BuscarNodo(ListaVehiculos[i].listapedidos[j + 1].Barrio) == nodo)
+                            {
+                                nodoencontrado = true;
+                            }
+                        }
+
+                        if (!nodoencontrado)
+                        {
+                            NodosVisitadosRecorrido = new List<ClassGrafoNodo>();
+                            listanodosaux = grafo.Camino(ListaVehiculos[i].listapedidos[j].Barrio, ListaVehiculos[i].listapedidos[j + 1].Barrio, listanodosaux, NodosVisitadosRecorrido);
+                        }
+                    }  
+                }
+
+                else if (j == ListaVehiculos[i].listapedidos.Count - 1)
+                {
+                    break;
+                }
+
+                else
+                {
+                    foreach (ClassGrafoNodo nodo in listanodosaux)
+                    {
+                        if (grafo.BuscarNodo(ListaVehiculos[i].listapedidos[j + 1].Barrio) == nodo)
+                        {
+                            nodoencontrado = true;
+                        }
+                    }
+                    if (!nodoencontrado)
+                    {
+                        NodosVisitadosRecorrido = new List<ClassGrafoNodo>();
+                        listanodosaux = grafo.Camino(ListaVehiculos[i].listapedidos[j].Barrio, ListaVehiculos[i].listapedidos[j + 1].Barrio, listanodosaux, NodosVisitadosRecorrido);
+                    }  
+                } 
+            }
+
+            listarecorridos.Add(new ClassRecorrido("a", ListaVehiculos[i]._vehiculo,1, listanodosaux));
         }
 
-        // Genero arrays
-
-        Volumenes = new int[PedidosAux.Count + 1];
-        Pesos = new int[PedidosAux.Count + 1];
-
-        Volumenes[0] = 0;
-        Pesos[0] = 0;
-
-        for (int i = 1; i < PedidosAux.Count + 1; i++)
+        foreach (ClassRecorrido recorrido in listarecorridos)
         {
-            Volumenes[i] = (int)PedidosAux[i - 1].Volumen;
-            Pesos[i] = (int)PedidosAux[i - 1].Peso;
+            ListViewItem lista = new ListViewItem(recorrido._key);
+            lista.SubItems.Add(recorrido._dia.ToString());
+            lista.SubItems.Add(recorrido._vehiculo);
+            listView1.Items.Add(lista);
         }
 
-        // Seguno tengo en cuenta el volumen maximo
+        //
 
-        IndicePedidos = Algoritmo.CargaMochila(Pesos, Volumenes, (int)ListaVehiculos[1].VolumenMaximo, PedidosAux.Count + 1);
-
-        // Cargo esos pedidos en el vehiculo que cumplen con los 2 requisitos
-
-        for (int i = 0; i < IndicePedidos.Count; i++)
+        for(int i = 0; i < listarecorridos[0]._listaNodosRecorrido.Count; i++)
         {
-            ListaVehiculos[1].listapedidos.Add(PedidosAux[IndicePedidos[i] - 1]);
-            PedidosConElevador.Remove(PedidosAux[IndicePedidos[i] - 1]);
+            ListaVehiculos[0].QuitarPedido(listarecorridos[0]._listaNodosRecorrido[i]);
         }
 
-        //Todo: pasar todo a un metodo para poder ejecutarse en todos los vehiculos y todas las prioridades
-        //Todo: pasar los valores del csv a enteros para eviar problemas
+
+        // Remuevo de la lista de pedidos los pedidos ya cargados en los vehiculos
+
+        for (int i = 0; i < ListaVehiculos.Count; i++)
+        {
+            for (int j = 0; j < ListaVehiculos[i].listapedidos.Count; j++)
+            {
+                Pedidos.Remove(ListaVehiculos[i].listapedidos[j]);
+            }
+        }
+
+        // Ajusto la ptiroidad de los pedidos restantes para los proximos dias de entrega
+
+        for (int i = 0; i < Pedidos.Count; i++)
+        {
+            Pedidos[i].TipoDeEntrega = (ETipoDeEntrega)(Pedidos[i].TipoDeEntrega - 1);
+        }
 
         Console.WriteLine();
     }

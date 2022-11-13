@@ -21,10 +21,11 @@ namespace tp_final
 
         #region Constructors
 
-        public ClassRecorrido(string key,string vehiculo, List<ClassGrafoNodo> ListaNodos)
+        public ClassRecorrido(string key,string vehiculo, int dia, List<ClassGrafoNodo> ListaNodos)
         {
             _key = key;
             _vehiculo= vehiculo;
+            _dia= dia;
             _listaNodosRecorrido = ListaNodos;
             _pedidosRecorrido = new List<ClassPedido>();
             KmRecorrido = 0;//Sumar los km de la lista de nodos

@@ -45,6 +45,69 @@ namespace tp_final
             }
         }
 
+       public void ProcesoDeLlenado(List<ClassPedido> Pedidos, ClassVehiculo Vehiculo)//lISTA YA FLITRADA
+        {
+
+            // Genero arrays
+
+            int[] Volumenes = new int[Pedidos.Count + 1];
+            int[] Pesos = new int[Pedidos.Count + 1];
+
+            Volumenes[0] = 0;
+            Pesos[0] = 0;
+
+            for (int i = 1; i < Pedidos.Count + 1; i++)
+            {
+                Volumenes[i] = (int)Pedidos[i - 1].Volumen;
+                Pesos[i] = (int)Pedidos[i - 1].Peso;
+            }
+
+            // Primero tengo en cuenta el peso maximo
+
+            List<int> IndicePedidos = CargaMochila(Volumenes, Pesos, Vehiculo.PesoDisponible, Pedidos.Count + 1);
+
+            //Genero lista auxilair de pedidos que cumplen el primer requisito
+
+            List<ClassPedido> PedidosAux = new List<ClassPedido>();
+
+            for (int i = 0; i < IndicePedidos.Count; i++)
+            {
+                PedidosAux.Add(Pedidos[IndicePedidos[i] - 1]);
+            }
+
+            // Genero arrays
+
+            Volumenes = new int[PedidosAux.Count + 1];
+            Pesos = new int[PedidosAux.Count + 1];
+
+            Volumenes[0] = 0;
+            Pesos[0] = 0;
+
+            for (int i = 1; i < PedidosAux.Count + 1; i++)
+            {
+                Volumenes[i] = (int)PedidosAux[i - 1].Volumen;
+                Pesos[i] = (int)PedidosAux[i - 1].Peso;
+            }
+
+            // Seguno tengo en cuenta el volumen maximo
+
+            IndicePedidos = CargaMochila(Pesos, Volumenes, (int)Vehiculo.VolumenDisponible, PedidosAux.Count + 1);
+
+            // Cargo esos pedidos en el vehiculo que cumplen con los 2 requisitos
+
+            for (int i = 0; i < IndicePedidos.Count; i++)
+            {
+                //Vehiculo.listapedidos.Add(PedidosAux[IndicePedidos[i] - 1]);
+                Vehiculo.AgregarPedido(PedidosAux[IndicePedidos[i] - 1]);
+                Pedidos.Remove(PedidosAux[IndicePedidos[i] - 1]);
+            }
+
+            //Todo: pasar todo a un metodo para poder ejecutarse en todos los vehiculos y todas las prioridades
+            //Todo: pasar los valores del csv a enteros para eviar problemas
+
+            Console.WriteLine();
+        }
+
         public List<int> CargaMochila(int[] Valor, int[] Peso, int CapacidadMochila, int NroElementos)
         {
             int[,] Soluciones = new int[NroElementos + 1, CapacidadMochila + 1];
