@@ -32,8 +32,12 @@ partial class Form1
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            this.button1 = new System.Windows.Forms.Button();
             this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listView1
@@ -42,10 +46,14 @@ partial class Form1
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
-            this.columnHeader4});
-            this.listView1.Location = new System.Drawing.Point(315, 82);
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7,
+            this.columnHeader8});
+            this.listView1.Location = new System.Drawing.Point(195, 82);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(441, 323);
+            this.listView1.Size = new System.Drawing.Size(765, 328);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -62,6 +70,32 @@ partial class Form1
             // columnHeader3
             // 
             this.columnHeader3.Text = "Vehiculo";
+            this.columnHeader3.Width = 80;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Km Barrios";
+            this.columnHeader4.Width = 80;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Peso Maximo";
+            this.columnHeader5.Width = 100;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Peso Carga";
+            this.columnHeader6.Width = 100;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Volumen Maximo";
+            this.columnHeader7.Width = 120;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Volumen Carga";
+            this.columnHeader8.Width = 100;
             // 
             // button1
             // 
@@ -73,15 +107,11 @@ partial class Form1
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Km";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(984, 473);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.listView1);
             this.Name = "Form1";
@@ -99,4 +129,8 @@ partial class Form1
     private ColumnHeader columnHeader3;
     private Button button1;
     private ColumnHeader columnHeader4;
+    private ColumnHeader columnHeader5;
+    private ColumnHeader columnHeader6;
+    private ColumnHeader columnHeader7;
+    private ColumnHeader columnHeader8;
 }

@@ -66,7 +66,7 @@ namespace tp_final
             listapedidos = new List<ClassPedido>();
             Recorrido = null;
             VolumenDisponible = VolumenMaximo;
-            PesoDisponible= PesoMaximo;
+            PesoDisponible = PesoMaximo;
         }
         #endregion 
 

@@ -79,7 +79,11 @@ namespace tp_final
                 return null;
             }
 
-            List<ClassGrafoNodo> RecorridoActual = Recorrido; // todo: clonar lista
+            
+            //List<ClassGrafoNodo> RecorridoActual = Recorrido; // todo: clonar lista
+
+            List<ClassGrafoNodo> RecorridoActual = new List<ClassGrafoNodo>(Recorrido); // Revisar
+
             List<ClassGrafoNodo>? RecorridoAux;
             if (NodoInicio == NodoDestino)
             {

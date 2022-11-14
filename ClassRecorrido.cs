@@ -15,21 +15,40 @@ namespace tp_final
         public string _key;
         public int _dia;
         public string _vehiculo;
-        public int KmRecorrido;
+        public float KmRecorrido;
+        public int PesoMaximo;
+        public int VolumenMaximo;
+        public int PesoDisponible;
+        public int VolumenDisponible;
 
         #endregion 
 
         #region Constructors
 
-        public ClassRecorrido(string key,string vehiculo, int dia, List<ClassGrafoNodo> ListaNodos)
+        public ClassRecorrido(string key, ClassVehiculo vehiculo, int dia, List<ClassGrafoNodo> ListaNodos)
         {
             _key = key;
-            _vehiculo= vehiculo;
+            _vehiculo= vehiculo._vehiculo;
             _dia= dia;
             _listaNodosRecorrido = ListaNodos;
-            _pedidosRecorrido = new List<ClassPedido>();
+            _pedidosRecorrido = new List<ClassPedido>(vehiculo.listapedidos);
+            PesoMaximo = vehiculo.PesoMaximo;
+            VolumenMaximo = vehiculo.VolumenMaximo;
+            PesoDisponible=vehiculo.PesoDisponible;
+            VolumenDisponible = vehiculo.VolumenDisponible;
+
             KmRecorrido = 0;//Sumar los km de la lista de nodos
 
+            for(int i = 0; i < ListaNodos.Count - 1; i++)
+            {
+                for(int j = 0; j < ListaNodos[i].listaunion.Count;j++)
+                {
+                    if (ListaNodos[i].listaunion[j].NodoDestino == ListaNodos[i + 1])
+                    {
+                        KmRecorrido += ListaNodos[i].listaunion[j].peso;
+                    }
+                }
+            }
         }
         #endregion 
 

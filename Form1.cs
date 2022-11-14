@@ -89,6 +89,26 @@ public partial class Form1 : Form
         grafo.NodoList= csv_.read_csv_NodosGrafo();
         csv_.read_csv_NodosUniones(grafo);
 
+        //Odeno las uniones de menor a mayor
+
+        ClassGrafoUnion nodoAux;
+
+        for (int i = 0; i < grafo.NodoList.Count; i++)
+        {
+            for (int j = 1; j < grafo.NodoList[i].listaunion.Count; j++)
+            {
+                for (int h = 0; h < grafo.NodoList[i].listaunion.Count - 1; h++)
+                {
+                    if (grafo.NodoList[i].listaunion[h].peso > grafo.NodoList[i].listaunion[h + 1].peso)
+                    {
+                        nodoAux = grafo.NodoList[i].listaunion[h];
+                        grafo.NodoList[i].listaunion[h] = grafo.NodoList[i].listaunion[h + 1];
+                        grafo.NodoList[i].listaunion[h + 1] = nodoAux;
+                    }
+                }
+            }
+        }
+
         //Grafo con los barrios
 
         ListaDeNodosRecorrido = new List<ClassGrafoNodo>();
@@ -227,15 +247,24 @@ public partial class Form1 : Form
                     }
                 }
 
-                listarecorridos.Add(new ClassRecorrido(key.ToString(), ListaVehiculos[i]._vehiculo, dia, listanodosaux));
+                listarecorridos.Add(new ClassRecorrido(key.ToString(), ListaVehiculos[i], dia, listanodosaux));
                 key++;
             }
+
+            // Imprimo en la ListView los recorridos
+
+            listView1.Items.Clear();
 
             foreach (ClassRecorrido recorrido in listarecorridos)
             {
                 ListViewItem lista = new ListViewItem(recorrido._key);
                 lista.SubItems.Add(recorrido._dia.ToString());
                 lista.SubItems.Add(recorrido._vehiculo);
+                lista.SubItems.Add(string.Format("{0:N2}", recorrido.KmRecorrido));
+                lista.SubItems.Add(string.Format("{0:N2}", recorrido.PesoMaximo));
+                lista.SubItems.Add(string.Format("{0:N2}", recorrido.PesoMaximo - recorrido.PesoDisponible));
+                lista.SubItems.Add(string.Format("{0:N2}", recorrido.VolumenMaximo));
+                lista.SubItems.Add(string.Format("{0:N2}", recorrido.VolumenMaximo - recorrido.VolumenDisponible));
                 listView1.Items.Add(lista);
             }
 
@@ -249,30 +278,28 @@ public partial class Form1 : Form
                 }
             }
 
+            //Reparto los pedidos
+
             for (int i = 0; i < PosVehiculoMaximo; i++)
             {
                 for (int j = 0; j < listarecorridos[i]._listaNodosRecorrido.Count; j++)
                 {
                     ListaVehiculos[i].QuitarPedido(listarecorridos[i]._listaNodosRecorrido[j]);
                 }
-
                 ListaVehiculos[i].VolumenDisponible = ListaVehiculos[i].VolumenMaximo;
                 ListaVehiculos[i].PesoDisponible = ListaVehiculos[i].PesoMaximo;
             }
-
 
             // Ajusto la ptiroidad de los pedidos restantes para los proximos dias de entrega
 
             for (int i = 0; i < Pedidos.Count; i++)
             {
-                Pedidos[i].TipoDeEntrega = (ETipoDeEntrega)(Pedidos[i].TipoDeEntrega - 1);
+                if(Pedidos[i].TipoDeEntrega != ETipoDeEntrega.Express)
+                {
+                    Pedidos[i].TipoDeEntrega = (ETipoDeEntrega)(Pedidos[i].TipoDeEntrega - 1);
+                }
             }
         }
-
-        
-
         dia++;
-
-        Console.WriteLine();
     }
 }
