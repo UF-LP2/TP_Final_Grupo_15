@@ -38,6 +38,7 @@ partial class Form1
             this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listView1
@@ -51,7 +52,7 @@ partial class Form1
             this.columnHeader6,
             this.columnHeader7,
             this.columnHeader8});
-            this.listView1.Location = new System.Drawing.Point(195, 82);
+            this.listView1.Location = new System.Drawing.Point(12, 87);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(765, 328);
             this.listView1.TabIndex = 0;
@@ -99,7 +100,7 @@ partial class Form1
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(66, 82);
+            this.button1.Location = new System.Drawing.Point(127, 26);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 31);
             this.button1.TabIndex = 1;
@@ -107,13 +108,26 @@ partial class Form1
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(567, 26);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(120, 31);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "Detalles Recorrido";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 473);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(793, 431);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.listView1);
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -133,4 +147,5 @@ partial class Form1
     private ColumnHeader columnHeader6;
     private ColumnHeader columnHeader7;
     private ColumnHeader columnHeader8;
+    private Button button2;
 }

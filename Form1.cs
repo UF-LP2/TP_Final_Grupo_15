@@ -17,6 +17,8 @@ public partial class Form1 : Form
 
     public int key;
 
+    public int contador; // contador de pedidos atrasados
+
     //Listas globales
 
     //Variables para la carga de los camiones
@@ -50,7 +52,7 @@ public partial class Form1 : Form
         InitializeComponent();
 
         //lista global de pedidos
-
+        contador = 0;
         var csv_ = new csvfiles._csv();
         Pedidos = csv_.read_csv();
 
@@ -191,6 +193,12 @@ public partial class Form1 : Form
 
             bool nodoencontrado = false;
 
+            bool nodoencontrado2 = false;
+
+            List<ClassGrafoNodo> listaNodosAuxilar;
+
+            ClassGrafoNodo nodoauxiliar;
+
             for (int i = 0; i < PosVehiculoMaximo; i++)
             {
                 List<ClassGrafoNodo> listanodosaux = new List<ClassGrafoNodo>();
@@ -220,7 +228,12 @@ public partial class Form1 : Form
                             if (!nodoencontrado)
                             {
                                 NodosVisitadosRecorrido = new List<ClassGrafoNodo>();
-                                listanodosaux = grafo.Camino(ListaVehiculos[i].listapedidos[j].Barrio, ListaVehiculos[i].listapedidos[j + 1].Barrio, listanodosaux, NodosVisitadosRecorrido);
+
+                                nodoauxiliar = listanodosaux[listanodosaux.Count - 1];
+
+                                listanodosaux.Remove(nodoauxiliar);
+
+                                listanodosaux = grafo.Camino(nodoauxiliar.NombreNodo, ListaVehiculos[i].listapedidos[j + 1].Barrio, listanodosaux, NodosVisitadosRecorrido);
                             }
                         }
                     }
@@ -234,15 +247,21 @@ public partial class Form1 : Form
                     {
                         foreach (ClassGrafoNodo nodo in listanodosaux)
                         {
+
                             if (grafo.BuscarNodo(ListaVehiculos[i].listapedidos[j + 1].Barrio) == nodo)
                             {
                                 nodoencontrado = true;
                             }
                         }
-                        if (!nodoencontrado)
+                        if (nodoencontrado == false)
                         {
                             NodosVisitadosRecorrido = new List<ClassGrafoNodo>();
-                            listanodosaux = grafo.Camino(ListaVehiculos[i].listapedidos[j].Barrio, ListaVehiculos[i].listapedidos[j + 1].Barrio, listanodosaux, NodosVisitadosRecorrido);
+
+                            nodoauxiliar = listanodosaux[listanodosaux.Count - 1];
+
+                            listanodosaux.Remove(nodoauxiliar);
+
+                            listanodosaux = grafo.Camino(nodoauxiliar.NombreNodo, ListaVehiculos[i].listapedidos[j + 1].Barrio, listanodosaux, NodosVisitadosRecorrido);
                         }
                     }
                 }
@@ -298,8 +317,25 @@ public partial class Form1 : Form
                 {
                     Pedidos[i].TipoDeEntrega = (ETipoDeEntrega)(Pedidos[i].TipoDeEntrega - 1);
                 }
+                else
+                {
+                    contador++;
+                }
             }
         }
         dia++;
+    }
+
+    private void button2_Click(object sender, EventArgs e)
+    {
+        FormDetallesPedidos detalles = null;
+        foreach (ListViewItem lista in listView1.SelectedItems)
+        {
+            detalles = new FormDetallesPedidos(listarecorridos[Int32.Parse(lista.Text)]);
+        }
+        if (detalles != null)
+        {
+            detalles.Show();
+        }
     }
 }

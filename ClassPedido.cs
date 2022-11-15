@@ -138,6 +138,7 @@ namespace tp_final
                     TipoDePrducto = ETipoDePrducto.Televisor;
                     break;
                 default:
+                    _producto = "molinillos de granos de cafe";
                     TipoDePrducto = ETipoDePrducto.PequenoElectrodomestico;
                     break;
             }
