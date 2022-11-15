@@ -12,10 +12,12 @@ namespace tp_final
 {
     public partial class FormDetallesPedidos : Form
     {
+        #region Variables
 
         public ClassRecorrido recorrido;
-
         public int id;
+
+        #endregion
 
         public FormDetallesPedidos(ClassRecorrido recorrido)
         {
@@ -26,7 +28,7 @@ namespace tp_final
 
         private void FormDetallesPedidos_Load(object sender, EventArgs e)
         {
-            foreach (ClassPedido pedido in recorrido._pedidosRecorrido)
+            foreach (ClassPedido pedido in recorrido._pedidosRecorrido)//Imprimo en la ListView los recorridos
             {
                 ListViewItem lista = new ListViewItem(Convert.ToString(id));
                 lista.SubItems.Add(pedido._producto);
@@ -83,7 +85,7 @@ namespace tp_final
                 id++;
             }
 
-            foreach(ClassGrafoNodo Nodo in recorrido._listaNodosRecorrido)
+            foreach(ClassGrafoNodo Nodo in recorrido._listaNodosRecorrido)//Imprimo en la ListView los recorridos
             {
                 ListViewItem lista = new ListViewItem(Nodo.NombreNodo);
                 listView2.Items.Add(lista);

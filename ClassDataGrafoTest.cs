@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace tp_final
+namespace tp_final //No la usamos para el programa era simplemente para probar cosas
 {
     public class ClassDataGrafoTest
     {
-
         public List<string> listaNodos;
         public List<string> listaNodosPartida;
         public List<string> listaNodosDestino;

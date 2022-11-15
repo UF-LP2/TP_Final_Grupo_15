@@ -6,8 +6,10 @@ using tp_final.Properties;
 using tp_final;
 using Microsoft.VisualBasic.ApplicationServices;
 
-namespace csvfiles {
-    public class _csv {
+namespace csvfiles
+{
+    public class _csv 
+    {
 
         public List<ClassPedido> read_csv()
         {
@@ -15,15 +17,13 @@ namespace csvfiles {
 
             using (var reader = new StreamReader(Resources.archivo))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
-
+            { 
                 List<ClassPedido> records = new List<ClassPedido>();
 
                 csv.Read();
                 csv.ReadHeader();
                 while (csv.Read())
                 {
-
                     ClassPedido record = new ClassPedido
                     (
                         csv.GetField<string>("producto"),
@@ -37,7 +37,6 @@ namespace csvfiles {
                     );
                     records.Add(record);
                 }
-
                 return records;
             }
         }
@@ -81,6 +80,5 @@ namespace csvfiles {
                 return;
             }
         }
-
     }
 };

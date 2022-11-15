@@ -19,6 +19,7 @@ namespace tp_final
         {
 
         }
+
         #endregion 
 
         #region GetSets
@@ -27,7 +28,7 @@ namespace tp_final
 
         #region Method
 
-        public void SepararListas(List<ClassPedido> Pedidos, List<ClassPedido> PedidosConElevador, List<ClassPedido> PedidosSinElevador, ETipoDeEntrega tipoDeEntrega)
+        public void SepararListas(List<ClassPedido> Pedidos, List<ClassPedido> PedidosConElevador, List<ClassPedido> PedidosSinElevador, ETipoDeEntrega tipoDeEntrega)//Separamos listas en las que tienen elevador y quienes no de tal prioridad
         {
             for (int i = 0; i < Pedidos.Count; i++)
             {
@@ -45,7 +46,7 @@ namespace tp_final
             }
         }
 
-       public void ProcesoDeLlenado(List<ClassPedido> PedidosGlobales, List<ClassPedido> Pedidos, ClassVehiculo Vehiculo)//lISTA YA FLITRADA
+       public void ProcesoDeLlenado(List<ClassPedido> PedidosGlobales, List<ClassPedido> Pedidos, ClassVehiculo Vehiculo)//Se le pasa la lista ya filtradas de elevador o no
         {
 
             // Genero arrays
@@ -56,7 +57,7 @@ namespace tp_final
             Volumenes[0] = 0;
             Pesos[0] = 0;
 
-            for (int i = 1; i < Pedidos.Count + 1; i++)
+            for (int i = 1; i < Pedidos.Count + 1; i++)//Guardamos en el array los datos de los pedidos
             {
                 Volumenes[i] = (int)Pedidos[i - 1].Volumen;
                 Pesos[i] = (int)Pedidos[i - 1].Peso;
@@ -64,13 +65,13 @@ namespace tp_final
 
             // Primero tengo en cuenta el peso maximo
 
-            List<int> IndicePedidos = CargaMochila(Volumenes, Pesos, Vehiculo.PesoDisponible, Pedidos.Count + 1);
+            List<int> IndicePedidos = CargaMochila(Volumenes, Pesos, Vehiculo.PesoDisponible, Pedidos.Count + 1);//Devolvemos las posiciones de la lista de pedidos que vamos a usar para la mochila
 
-            //Genero lista auxilair de pedidos que cumplen el primer requisito
+            //Genero lista auxiliar de pedidos que cumplen el primer requisito
 
             List<ClassPedido> PedidosAux = new List<ClassPedido>();
 
-            for (int i = 0; i < IndicePedidos.Count; i++)
+            for (int i = 0; i < IndicePedidos.Count; i++)//Guardamos los pedidos que vamos a usar teniendo en cuenta el peso 
             {
                 PedidosAux.Add(Pedidos[IndicePedidos[i] - 1]);
             }
@@ -83,41 +84,35 @@ namespace tp_final
             Volumenes[0] = 0;
             Pesos[0] = 0;
 
-            for (int i = 1; i < PedidosAux.Count + 1; i++)
+            for (int i = 1; i < PedidosAux.Count + 1; i++)//Guardamos en el array los datos de los pedidos
             {
                 Volumenes[i] = (int)PedidosAux[i - 1].Volumen;
                 Pesos[i] = (int)PedidosAux[i - 1].Peso;
             }
 
-            // Seguno tengo en cuenta el volumen maximo
+            // Segundo tengo en cuenta el volumen maximo sobre la lista que nos devolvio el peso maximo
 
-            IndicePedidos = CargaMochila(Pesos, Volumenes, (int)Vehiculo.VolumenDisponible, PedidosAux.Count + 1);
+            IndicePedidos = CargaMochila(Pesos, Volumenes, (int)Vehiculo.VolumenDisponible, PedidosAux.Count + 1);//Devolvemos las posiciones de la lista de pedidos que vamos a usar para la mochila
 
-            // Cargo esos pedidos en el vehiculo que cumplen con los 2 requisitos
-
-            for (int i = 0; i < IndicePedidos.Count; i++)
+            for (int i = 0; i < IndicePedidos.Count; i++)// Cargo esos pedidos en el vehiculo que cumplen con los 2 requisitos
             {
-                //Vehiculo.listapedidos.Add(PedidosAux[IndicePedidos[i] - 1]);
                 Vehiculo.AgregarPedido(PedidosAux[IndicePedidos[i] - 1]);
-                Pedidos.Remove(PedidosAux[IndicePedidos[i] - 1]);
+                Pedidos.Remove(PedidosAux[IndicePedidos[i] - 1]);//Lo sacamos de la lista de pedidos con elevador o sin elevador
                 PedidosGlobales.Remove(PedidosAux[IndicePedidos[i] - 1]);
             }
-
-            //Todo: pasar todo a un metodo para poder ejecutarse en todos los vehiculos y todas las prioridades
-            //Todo: pasar los valores del csv a enteros para eviar problemas
 
             Console.WriteLine();
         }
 
-        public List<int> CargaMochila(int[] Valor, int[] Peso, int CapacidadMochila, int NroElementos)
+        public List<int> CargaMochila(int[] Valor, int[] Peso, int CapacidadMochila, int NroElementos)//Algoritmo mochila
         {
-            int[,] Soluciones = new int[NroElementos + 1, CapacidadMochila + 1];
+            int[,] Soluciones = new int[NroElementos + 1, CapacidadMochila + 1];//Genero matriz
 
             for (int i = 0; i <= NroElementos; i++)
             {
                 for (int j = 0; j <= CapacidadMochila; j++)
                 {
-                    if (i == 0 || j == 0)
+                    if (i == 0 || j == 0)//Generamos primera linea y primera columna en 0
                     {
                         Soluciones[i, j] = 0;
                     }
@@ -132,8 +127,8 @@ namespace tp_final
                     }
                 }
             }
-            int[,] Soluciones_2 = new int[NroElementos, CapacidadMochila + 1];
 
+            int[,] Soluciones_2 = new int[NroElementos, CapacidadMochila + 1];
             for (int i = 0; i < NroElementos; i++)
             {
                 for (int j = 0; j <= CapacidadMochila; j++)
@@ -141,15 +136,15 @@ namespace tp_final
                     Soluciones_2[i, j] = Soluciones[i + 1, j];
                 }
             }
-            List<int> listadepedidos = new List<int>();
 
+            List<int> listadepedidos = new List<int>();//Genero la lista de indices que voy a devolver
             int capacidadaux = CapacidadMochila;
 
             for (int i = NroElementos - 1; i > 0; i--)
             {
                 if (Soluciones_2[i, capacidadaux] != Soluciones_2[i - 1, capacidadaux] && Soluciones_2[i, capacidadaux] == Soluciones_2[i - 1, capacidadaux - Peso[i]] + Valor[i])
                 {
-                    listadepedidos.Add(i);
+                    listadepedidos.Add(i);//Agrego el pedido a la lista
                     capacidadaux -= Peso[i];
                 }
             }

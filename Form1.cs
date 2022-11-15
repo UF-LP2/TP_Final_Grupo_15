@@ -6,76 +6,54 @@ namespace tp_final;
 
 public partial class Form1 : Form
 {
+    #region Variables
 
     //Listas globales
-
     public List<ClassPedido> Pedidos;
-
     public List<ClassVehiculo> ListaVehiculos;
 
+    //Variables de impresion 
     public int dia;
-
     public int key;
 
-    public int contador; // contador de pedidos atrasados
-
-    //Listas globales
+    public int contador;//contador de pedidos atrasados de prueba
 
     //Variables para la carga de los camiones
-
     public ClassMochila Algoritmo;
-
     public List<ClassPedido> PedidosConElevador;
-
     public List<ClassPedido> PedidosSinElevador;
 
-    //Variables para la carga de los camiones
-
     //Variables para el calculo del camiono entre nodos
-
     public ClassGrafo grafo;
-
     public List<ClassGrafoNodo> NodosVisitadosRecorrido;
-
     public List<ClassGrafoNodo> ListaDeNodosRecorrido;
 
-    //Variables para el calculo del camiono entre nodos
-
     //Variables para ListView
-
     public List<ClassRecorrido> listarecorridos;
 
-    //Variables para ListView
+    #endregion
 
     public Form1()
     {
         InitializeComponent();
 
-        //lista global de pedidos
         contador = 0;
+        dia = 0;
+        key = 0;
+        Algoritmo = new ClassMochila();
+        PedidosConElevador = new List<ClassPedido>();
+        PedidosSinElevador = new List<ClassPedido>();
+        ListaVehiculos = new List<ClassVehiculo>();
+        grafo = new ClassGrafo();
+        ClassGrafoUnion nodoAux;
+        ListaDeNodosRecorrido = new List<ClassGrafoNodo>();
+        NodosVisitadosRecorrido = new List<ClassGrafoNodo>();
+        listarecorridos = new List<ClassRecorrido>();
+
         var csv_ = new csvfiles._csv();
         Pedidos = csv_.read_csv();
 
-        dia = 0;
-
-        key = 0;
-
-        //lista global de pedidos
-
-        //Variables para la carga de los camiones
-
-        Algoritmo = new ClassMochila();
-
-        PedidosConElevador = new List<ClassPedido>();
-
-        PedidosSinElevador = new List<ClassPedido>();
-
-        //Variables para la carga de los camiones
-
         //Inicializacion de vehiculos
-
-        ListaVehiculos = new List<ClassVehiculo>();
-
         ListaVehiculos.Add(new ClassVehiculo("furgon"));
         ListaVehiculos.Add(new ClassVehiculo("furgoneta"));
         ListaVehiculos.Add(new ClassVehiculo("camioneta"));
@@ -83,19 +61,11 @@ public partial class Form1 : Form
         ListaVehiculos.Add(new ClassVehiculo("camioneta"));
         ListaVehiculos.Add(new ClassVehiculo("camioneta"));
 
-        //Inicializacion de vehiculos
-
-        //Grafo con los barrios
-
-        grafo = new ClassGrafo();
+        //Inicializacion los barrios del grafo
         grafo.NodoList= csv_.read_csv_NodosGrafo();
         csv_.read_csv_NodosUniones(grafo);
 
-        //Odeno las uniones de menor a mayor
-
-        ClassGrafoUnion nodoAux;
-
-        for (int i = 0; i < grafo.NodoList.Count; i++)
+        for (int i = 0; i < grafo.NodoList.Count; i++) //Odeno las uniones de menor a mayor
         {
             for (int j = 1; j < grafo.NodoList[i].listaunion.Count; j++)
             {
@@ -110,20 +80,6 @@ public partial class Form1 : Form
                 }
             }
         }
-
-        //Grafo con los barrios
-
-        ListaDeNodosRecorrido = new List<ClassGrafoNodo>();
-
-        NodosVisitadosRecorrido = new List<ClassGrafoNodo>();
-
-        //grafo.Camino("comuna 1", "la matanza", ListaDeNodosRecorrido, NodosVisitadosRecorrido); //test metodo camino
-
-        //Variables para ListView
-
-        listarecorridos = new List<ClassRecorrido>();
-
-        Console.WriteLine();
     }
 
     private void Form1_Load(object sender, EventArgs e)
@@ -133,19 +89,15 @@ public partial class Form1 : Form
 
     private void button1_Click(object sender, EventArgs e)
     {
-
-        if(Pedidos.Count != 0)
+        if(Pedidos.Count != 0)//Siempre que haya pedidos 
         {
             int PosTipoDeEntra = 0;
-
             int PosVehiculoMaximo = 0;
 
             while (PosTipoDeEntra != 4)
             {
                 int PosVehiculo = 0;
-
                 PedidosConElevador = new List<ClassPedido>();
-
                 PedidosSinElevador = new List<ClassPedido>();
 
                 Algoritmo.SepararListas(Pedidos, PedidosConElevador, PedidosSinElevador, (ETipoDeEntrega)PosTipoDeEntra);
@@ -154,23 +106,23 @@ public partial class Form1 : Form
                 {
                     while ((PedidosConElevador.Count != 0 || PedidosSinElevador.Count != 0) && PosVehiculo != 6)
                     {
-                        if (PedidosConElevador.Count != 0 && (PosVehiculo == 0 || PosVehiculo == 1))
+                        if (PedidosConElevador.Count != 0 && (PosVehiculo == 0 || PosVehiculo == 1))//Solo para Furgon y Furgoneta
                         {
-                            Algoritmo.ProcesoDeLlenado(Pedidos, PedidosConElevador, ListaVehiculos[PosVehiculo]);
+                            Algoritmo.ProcesoDeLlenado(Pedidos, PedidosConElevador, ListaVehiculos[PosVehiculo]);//Se llenan los vehiculos 
                         }
 
                         if (PedidosSinElevador.Count != 0)
                         {
-                            Algoritmo.ProcesoDeLlenado(Pedidos, PedidosSinElevador, ListaVehiculos[PosVehiculo]);
+                            Algoritmo.ProcesoDeLlenado(Pedidos, PedidosSinElevador, ListaVehiculos[PosVehiculo]);//Se llenan los vehiculos
                         }
 
                         PosVehiculo++;
-                        PosVehiculoMaximo = PosVehiculo;
+                        PosVehiculoMaximo = PosVehiculo;//Se guardan cuantos vehiculos fueron usados
                     }
                 }
                 else
                 {
-                    if (PosVehiculoMaximo == 0)
+                    if (PosVehiculoMaximo == 0)//Si no se uso ningun vehiculo se fuerza el uso de uno en un dia
                     {
                         PosVehiculoMaximo = 1;
                     }
@@ -179,12 +131,12 @@ public partial class Form1 : Form
                     {
                         if (PedidosConElevador.Count != 0 && (i == 0 || i == 1))
                         {
-                            Algoritmo.ProcesoDeLlenado(Pedidos, PedidosConElevador, ListaVehiculos[i]);
+                            Algoritmo.ProcesoDeLlenado(Pedidos, PedidosConElevador, ListaVehiculos[i]);//Se llenan los vehiculos
                         }
 
                         if (PedidosSinElevador.Count != 0)
                         {
-                            Algoritmo.ProcesoDeLlenado(Pedidos, PedidosSinElevador, ListaVehiculos[i]);
+                            Algoritmo.ProcesoDeLlenado(Pedidos, PedidosSinElevador, ListaVehiculos[i]);//Se llenan los vehiculos
                         }
                     }
                 }
@@ -192,11 +144,6 @@ public partial class Form1 : Form
             }
 
             bool nodoencontrado = false;
-
-            bool nodoencontrado2 = false;
-
-            List<ClassGrafoNodo> listaNodosAuxilar;
-
             ClassGrafoNodo nodoauxiliar;
 
             for (int i = 0; i < PosVehiculoMaximo; i++)
@@ -210,14 +157,13 @@ public partial class Form1 : Form
                     if (j == 0)
                     {
                         ListaDeNodosRecorrido = new List<ClassGrafoNodo>();
-
                         NodosVisitadosRecorrido = new List<ClassGrafoNodo>();
 
-                        listanodosaux = grafo.Camino(grafo.NodoList[8].NombreNodo, ListaVehiculos[i].listapedidos[j].Barrio, ListaDeNodosRecorrido, NodosVisitadosRecorrido);
+                        listanodosaux = grafo.Camino(grafo.NodoList[8].NombreNodo, ListaVehiculos[i].listapedidos[j].Barrio, ListaDeNodosRecorrido, NodosVisitadosRecorrido);//Fuerzo el primer recorrido
 
                         if (ListaVehiculos[i].listapedidos.Count > 1)
                         {
-                            foreach (ClassGrafoNodo nodo in listanodosaux)
+                            foreach (ClassGrafoNodo nodo in listanodosaux)//Reviso que el siguiente barrio que tengo que buscar no haya pasado
                             {
                                 if (grafo.BuscarNodo(ListaVehiculos[i].listapedidos[j + 1].Barrio) == nodo)
                                 {
@@ -225,56 +171,45 @@ public partial class Form1 : Form
                                 }
                             }
 
-                            if (!nodoencontrado)
+                            if (!nodoencontrado)//Si el nodo no fue encontrado
                             {
                                 NodosVisitadosRecorrido = new List<ClassGrafoNodo>();
+                                nodoauxiliar = listanodosaux[listanodosaux.Count - 1];//Guardamos el ultimo lugar del recorrido de la lista para pasarselo como primero al siguiente
+                                listanodosaux.Remove(nodoauxiliar);//Remuevo el ultimo lugar del recorrido de la lista
 
-                                nodoauxiliar = listanodosaux[listanodosaux.Count - 1];
-
-                                listanodosaux.Remove(nodoauxiliar);
-
-                                listanodosaux = grafo.Camino(nodoauxiliar.NombreNodo, ListaVehiculos[i].listapedidos[j + 1].Barrio, listanodosaux, NodosVisitadosRecorrido);
+                                listanodosaux = grafo.Camino(nodoauxiliar.NombreNodo, ListaVehiculos[i].listapedidos[j + 1].Barrio, listanodosaux, NodosVisitadosRecorrido);//Genero el recorrido en la lista hasta el nododestino por el cual no habiamos pasado
                             }
                         }
                     }
-
-                    else if (j == ListaVehiculos[i].listapedidos.Count - 1)
+                    else if (j == ListaVehiculos[i].listapedidos.Count - 1)//Si es la ultima posicion termina el for
                     {
                         break;
                     }
-
                     else
                     {
-                        foreach (ClassGrafoNodo nodo in listanodosaux)
+                        foreach (ClassGrafoNodo nodo in listanodosaux)//Reviso que el siguiente barrio que tengo que buscar no haya pasado
                         {
-
                             if (grafo.BuscarNodo(ListaVehiculos[i].listapedidos[j + 1].Barrio) == nodo)
                             {
                                 nodoencontrado = true;
                             }
                         }
-                        if (nodoencontrado == false)
+                        if (nodoencontrado == false)//Si el nodo no fue encontrado
                         {
                             NodosVisitadosRecorrido = new List<ClassGrafoNodo>();
+                            nodoauxiliar = listanodosaux[listanodosaux.Count - 1];//Guardamos el ultimo lugar del recorrido de la lista para pasarselo como primero al siguiente
+                            listanodosaux.Remove(nodoauxiliar);//Remuevo el ultimo lugar del recorrido de la lista
 
-                            nodoauxiliar = listanodosaux[listanodosaux.Count - 1];
-
-                            listanodosaux.Remove(nodoauxiliar);
-
-                            listanodosaux = grafo.Camino(nodoauxiliar.NombreNodo, ListaVehiculos[i].listapedidos[j + 1].Barrio, listanodosaux, NodosVisitadosRecorrido);
+                            listanodosaux = grafo.Camino(nodoauxiliar.NombreNodo, ListaVehiculos[i].listapedidos[j + 1].Barrio, listanodosaux, NodosVisitadosRecorrido);//Genero el recorrido en la lista hasta el nododestino por el cual no habiamos pasado
                         }
                     }
                 }
-
-                listarecorridos.Add(new ClassRecorrido(key.ToString(), ListaVehiculos[i], dia, listanodosaux));
+                listarecorridos.Add(new ClassRecorrido(key.ToString(), ListaVehiculos[i], dia, listanodosaux));//Genero el recorrido para el vehiculo
                 key++;
             }
 
-            // Imprimo en la ListView los recorridos
-
             listView1.Items.Clear();
-
-            foreach (ClassRecorrido recorrido in listarecorridos)
+            foreach (ClassRecorrido recorrido in listarecorridos)//Imprimo en la ListView los recorridos
             {
                 ListViewItem lista = new ListViewItem(recorrido._key);
                 lista.SubItems.Add(recorrido._dia.ToString());
@@ -288,9 +223,7 @@ public partial class Form1 : Form
                 listView1.Items.Add(lista);
             }
 
-            // Remuevo de la lista de pedidos los pedidos ya cargados en los vehiculos
-
-            for (int i = 0; i < ListaVehiculos.Count; i++)
+            for (int i = 0; i < ListaVehiculos.Count; i++) // Remuevo de la lista de pedidos los pedidos ya cargados en los vehiculos (vaciamos los vehiculos)
             {
                 for (int j = 0; j < ListaVehiculos[i].listapedidos.Count; j++)
                 {
@@ -298,21 +231,17 @@ public partial class Form1 : Form
                 }
             }
 
-            //Reparto los pedidos
-
-            for (int i = 0; i < PosVehiculoMaximo; i++)
+            for (int i = 0; i < PosVehiculoMaximo; i++)//Reparto los pedidos
             {
                 for (int j = 0; j < listarecorridos[i]._listaNodosRecorrido.Count; j++)
                 {
                     ListaVehiculos[i].QuitarPedido(listarecorridos[i]._listaNodosRecorrido[j]);
                 }
-                ListaVehiculos[i].VolumenDisponible = ListaVehiculos[i].VolumenMaximo;
-                ListaVehiculos[i].PesoDisponible = ListaVehiculos[i].PesoMaximo;
+                ListaVehiculos[i].VolumenDisponible = ListaVehiculos[i].VolumenMaximo;//Ajusto nuevamente el volumen
+                ListaVehiculos[i].PesoDisponible = ListaVehiculos[i].PesoMaximo;//Ajusto nuevamente el peso
             }
 
-            // Ajusto la ptiroidad de los pedidos restantes para los proximos dias de entrega
-
-            for (int i = 0; i < Pedidos.Count; i++)
+            for (int i = 0; i < Pedidos.Count; i++)// Ajusto la priroidad de los pedidos restantes para los proximos dias de entrega
             {
                 if(Pedidos[i].TipoDeEntrega != ETipoDeEntrega.Express)
                 {
@@ -327,7 +256,7 @@ public partial class Form1 : Form
         dia++;
     }
 
-    private void button2_Click(object sender, EventArgs e)
+    private void button2_Click(object sender, EventArgs e)//Abrimos el otro form
     {
         FormDetallesPedidos detalles = null;
         foreach (ListViewItem lista in listView1.SelectedItems)
@@ -339,4 +268,5 @@ public partial class Form1 : Form
             detalles.Show();
         }
     }
+
 }

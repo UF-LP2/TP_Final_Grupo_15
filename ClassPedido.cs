@@ -44,7 +44,7 @@ namespace tp_final
         public ClassPedido(string? producto, float precio, float largo, float ancho, float alto, float peso, string? prioridad, string? barrio)
         {
             _producto = producto;
-            
+
             switch (_producto)
             {
                 case "impresoras":
@@ -98,7 +98,7 @@ namespace tp_final
                 case "freezers":
                     TipoDePrducto = ETipoDePrducto.LineaBlanca;
                     break;
-                case "molinillos de granos de café"://probar
+                case "molinillos de granos de café":
                     TipoDePrducto = ETipoDePrducto.PequenoElectrodomestico;
                     break;
                 case "tostadoras":
@@ -147,9 +147,10 @@ namespace tp_final
             Largo = largo;
             Ancho = ancho;
             Alto = alto;
-            Peso = peso;
+            Peso = peso*3;
             Volumen = ((ancho) * (largo) * (alto) / 1000);
             _prioridad = prioridad;
+            Barrio = barrio;
 
             switch (_prioridad)
             {
@@ -179,12 +180,11 @@ namespace tp_final
                 Elevador = false;
             }
 
-            Barrio = barrio;
         }
 
         ~ClassPedido()
         {
-            Console.WriteLine("");
+
         }
 
         #endregion 

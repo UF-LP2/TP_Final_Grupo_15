@@ -39,9 +39,9 @@ namespace tp_final
             PesoDisponible=vehiculo.PesoDisponible;
             VolumenDisponible = vehiculo.VolumenDisponible;
 
-            KmRecorrido = 0;//Sumar los km de la lista de nodos
+            KmRecorrido = 0;
 
-            for(int i = 0; i < ListaNodos.Count - 1; i++)
+            for(int i = 0; i < ListaNodos.Count - 1; i++)//Sumar los km de la lista de nodos
             {
                 for(int j = 0; j < ListaNodos[i].listaunion.Count;j++)
                 {
@@ -52,6 +52,7 @@ namespace tp_final
                 }
             }
         }
+
         #endregion 
 
         #region GetSets

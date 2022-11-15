@@ -22,21 +22,14 @@ namespace tp_final
         public int VolumenMaximo;
         public int PesoDisponible;
         public int VolumenDisponible;
-        public string _vehiculo;
+        public string? _vehiculo;
         public ETipoDeVehiculo vehiculo;
 
         #endregion 
 
         #region Constructors
 
-        public ClassVehiculo(int volumenMaximo,int pesomaximo)
-        {
-            VolumenMaximo = volumenMaximo;
-            PesoMaximo = pesomaximo;
-            listapedidos = new List<ClassPedido>();
-            Recorrido = null;
-        }
-        public ClassVehiculo(string Vehiculito)//POSIBLE CONSTRUCTOR
+        public ClassVehiculo(string Vehiculito)
         {
             _vehiculo = Vehiculito;
 
@@ -68,6 +61,7 @@ namespace tp_final
             VolumenDisponible = VolumenMaximo;
             PesoDisponible = PesoMaximo;
         }
+
         #endregion 
 
         #region GetSets
@@ -94,7 +88,8 @@ namespace tp_final
                 }
             }
         }
-        public float GastoDeGasolina(float kilometros)//Hay q revisarla con un caso
+
+        public float GastoDeGasolina(float kilometros)//Calculo de gasto de gasolina
         {
             float suma = 0;
 
@@ -107,13 +102,14 @@ namespace tp_final
                     suma = (kilometros * 6.94F) / 100;
                     break;
                 case ETipoDeVehiculo.Camioneta:
-                    suma = (kilometros * 7.5F) / 100;//NI IDEAAAA ES NAFTERO
+                    suma = (kilometros * 7.5F) / 100;
                     break;
                 default:
                     break;
             }
             return suma;
         }
+
         public void AgregarRecorrido(List<ClassGrafoNodo> Recorrido)
         {
             this.Recorrido = Recorrido;
