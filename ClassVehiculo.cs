@@ -94,36 +94,25 @@ namespace tp_final
                 }
             }
         }
-        public float GastoDeGasolina()//Hay q revisarla con un caso
+        public float GastoDeGasolina(float kilometros)//Hay q revisarla con un caso
         {
             float suma = 0;
-            for(int i=0; i < Recorrido.Count; i++)
-            {
-                for(int j=0;j< Recorrido[i].listaunion.Count;j++)
-                {
-                    if(Recorrido[i].listaunion[j].NodoDestino== Recorrido[i+1])
-                    {
-                        suma += Recorrido[i].listaunion[j].peso;
-                        break;
-                    }
-                }
-            }
+
             switch (vehiculo)
             {
                 case ETipoDeVehiculo.Furgon:
-                    suma = (suma * 8.904F) / 100;
+                    suma = (kilometros * 8.904F) / 100;
                     break;
                 case ETipoDeVehiculo.Furgoneta:
-                    suma = (suma * 6.94F) / 100;
+                    suma = (kilometros * 6.94F) / 100;
                     break;
                 case ETipoDeVehiculo.Camioneta:
-                    suma = (suma * 7.5F) / 100;//NI IDEAAAA ES NAFTERO
+                    suma = (kilometros * 7.5F) / 100;//NI IDEAAAA ES NAFTERO
                     break;
                 default:
                     break;
             }
-
-            return 0;
+            return suma;
         }
         public void AgregarRecorrido(List<ClassGrafoNodo> Recorrido)
         {

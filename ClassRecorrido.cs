@@ -12,6 +12,7 @@ namespace tp_final
 
         public List<ClassGrafoNodo> _listaNodosRecorrido;
         public List<ClassPedido> _pedidosRecorrido;
+        public ClassVehiculo ObjetoVehiculo;
         public string _key;
         public int _dia;
         public string _vehiculo;
@@ -32,6 +33,7 @@ namespace tp_final
             _dia= dia;
             _listaNodosRecorrido = ListaNodos;
             _pedidosRecorrido = new List<ClassPedido>(vehiculo.listapedidos);
+            ObjetoVehiculo = vehiculo;
             PesoMaximo = vehiculo.PesoMaximo;
             VolumenMaximo = vehiculo.VolumenMaximo;
             PesoDisponible=vehiculo.PesoDisponible;

@@ -11,8 +11,7 @@ namespace csvfiles {
 
         public List<ClassPedido> read_csv()
         {
-            //string path = "C:\\Users\\Lucas\\source\\repos\\UF-LP2\\TP_Final_Grupo_15\\data.csv";
-            //string path = Resources.archivo;
+            //string path = "..\\..\\..\\data.csv";
 
             using (var reader = new StreamReader(Resources.archivo))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -35,7 +34,6 @@ namespace csvfiles {
                         csv.GetField<float>("largo"),
                         csv.GetField<string>("prioridad"),
                         csv.GetField<string>("barrio")
-                        //fecha = new DateTime(csv.GetField<int>("fecha"))
                     );
                     records.Add(record);
                 }
@@ -46,7 +44,7 @@ namespace csvfiles {
 
         public List<ClassGrafoNodo> read_csv_NodosGrafo()
         {
-            string path = "C:\\Users\\Lucas\\source\\repos\\UF-LP2\\TP_Final_Grupo_15\\Barrios_BA.csv";
+            string path = "..\\..\\..\\Barrios_BA.csv";
 
             using (var reader = new StreamReader(path))// Barrios_BA.csv
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -65,7 +63,7 @@ namespace csvfiles {
 
         public void read_csv_NodosUniones(ClassGrafo grafo)
         {
-            string path = "C:\\Users\\Lucas\\source\\repos\\UF-LP2\\TP_Final_Grupo_15\\UnionesNodos.csv";
+            string path = "..\\..\\..\\UnionesNodos.csv";
 
             using (var reader = new StreamReader(path)) // UnionesNodos.csv
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))

@@ -284,6 +284,7 @@ public partial class Form1 : Form
                 lista.SubItems.Add(string.Format("{0:N2}", recorrido.PesoMaximo - recorrido.PesoDisponible));
                 lista.SubItems.Add(string.Format("{0:N2}", recorrido.VolumenMaximo));
                 lista.SubItems.Add(string.Format("{0:N2}", recorrido.VolumenMaximo - recorrido.VolumenDisponible));
+                lista.SubItems.Add(string.Format("{0:N2}", recorrido.ObjetoVehiculo.GastoDeGasolina(recorrido.KmRecorrido)));
                 listView1.Items.Add(lista);
             }
 
